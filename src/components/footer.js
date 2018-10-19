@@ -1,13 +1,15 @@
 
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 export default function(props){
   let {
     clearCompletedTodo,
     showClearBtn,
-    view,
-    changeView,
+    // view,
+    // changeView,
     leftItem,
+    pathname,
   } = props;
 
   return(
@@ -18,24 +20,42 @@ export default function(props){
       </span>
       <ul className='filters'>
         <li>
-          <a
+          <Link 
+            to='/'
+            className={pathname === '/'? 'selected': ''}
+          >
+          All
+          </Link>
+          {/* <a
             className={view === 'all'? 'selected': ''}
             onClick={()=>changeView('all')}
           >
             All
-          </a>
+          </a> */}
         </li>
         <li>
-          <a
+          <Link
+            className={pathname === '/active'? 'selected': ''}
+            to='/active'
+          >
+          Active
+          </Link>
+          {/* <a
             className={view === 'active'? 'selected': ''}
             onClick={()=>changeView('active')}
-          >Active</a>
+          >Active</a> */}
         </li>
         <li>
-          <a
+          <Link
+            className={pathname === '/completed'? 'selected': ''}
+            to='/completed'
+          >
+          Completed
+          </Link>
+          {/* <a
             className={view === 'completed'? 'selected': ''}
             onClick={()=>changeView('completed')}
-          >Completed</a>
+          >Completed</a> */}
         </li>
       </ul>
       {showClearBtn && (

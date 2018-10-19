@@ -1,6 +1,6 @@
 import React, {Component, createRef, Fragment} from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './index.css';
 import Todo from './components/todo';
 import Footer from './components/footer';
@@ -107,16 +107,17 @@ class TodoList extends Component{
     let {todoList, view} = this.state;
     let activeTodo = todoList.some(elt=>elt.hasCompleted===false);
     let completedTodo = todoList.some(elt=>elt.hasCompleted);
+    //底层组件也拿到浏览器的url，就需要用location.pathname，match的url就不行了。
+    let {location:{pathname}} = this.props;
 
     let leftItem = 0;
     let showTodoData = todoList.filter(elt => {
       if(!elt.hasCompleted) leftItem++;
-      switch(view){
-        case 'active':
+      switch(pathname){
+        case '/active':
           return !elt.hasCompleted;
-        case 'completed':
+        case '/completed':
           return elt.hasCompleted;
-        case 'all':
         default:
           return true;
       }
@@ -172,9 +173,10 @@ class TodoList extends Component{
                 ...{
                   clearCompletedTodo: this.clearCompletedTodo,
                   showClearBtn: completedTodo && todoList.length > 0,
-                  view,
-                  changeView: this.changeView,
+                  // view,
+                  // changeView: this.changeView,
                   leftItem,
+                  pathname,
                 }
               }
             />
@@ -191,8 +193,7 @@ class TodoList extends Component{
 
 ReactDOM.render(
   <Router>
-    <Route path='/'/>
-    <TodoList />
+    <Route path='/' component = {TodoList}/>
   </Router>
   , 
   document.getElementById('root')
