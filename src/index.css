@@ -376,3 +376,25 @@ html .clear-completed:active {
 		bottom: 10px;
 	}
 }
+
+
+/*tab  img */
+.tab {
+	margin: 0 auto;
+	width: 470px;
+}
+.nav {
+	display: flex;
+}
+.nav a {
+	flex: 1;
+	font: 12px/30px "宋体";
+	text-decoration: none;
+	text-align: center;
+	border: 1px solid #000;
+	color: #000;
+}
+.nav .active {
+	background: #000;
+	color: white
+}
